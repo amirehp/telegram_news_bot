@@ -1,5 +1,6 @@
 import feedparser, requests, random, json, os, re
 from google import genai
+from google.genai import types
 from dotenv import load_dotenv 
 
 
@@ -15,7 +16,12 @@ GEMINI_API_KEY = os.getenv('GEMINI_API_KEY')
 MODEL_NAME = config["model_name"]
 BASE_PROMPT = config["base_prompt"]
 TOPICS = config["topics"]
-client = genai.Client(api_key=GEMINI_API_KEY)
+
+
+client = genai.Client(
+    api_key=GEMINI_API_KEY,
+    http_options=types.HttpOptions(timeout=60_000)  # ۶۰ ثانیه
+)
 
 
 def summarize(topic, news): 
@@ -53,7 +59,10 @@ def send(text):
     requests.post(
         f"https://api.telegram.org/bot{TELEGRAM_TOKEN}/sendMessage",
         json={"chat_id": TARGET_CHAT_ID, "text": text},
+        timeout=30
     )
+    
+
 
 
 if __name__ == "__main__":

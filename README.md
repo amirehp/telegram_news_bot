@@ -114,6 +114,9 @@ schtasks /create /tn "NewsBot" /tr "\"C:\path\to\your\project\run.bat\"" /sc onl
 
 Task Scheduler →  task NewsBot → Properties → Triggers → Edit →   Repeat task every: 2 hours → Duration: Indefinitely.
 
+یک بار سیستم رو ری استارت کنین بعدش باید اتوماتیک کار کنه سر همون زمانی که مشخص کردین. 
+البته خودمم متوجه نشدم روی ویندوز تنظیمات دیگه ای رو هم تغییر دادم چون اولش درست کار نکرد. 
+
 
 ## مشارکت
 
