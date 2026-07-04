@@ -1,73 +1,74 @@
 # Telegram News Bot
 
-این یک ربات تلگرامی برای دریافت و مدیریت اخبار است.
+This is a Telegram bot for receiving and managing news.
 
-## پیش‌نیازها
+## Prerequisites
 
-* پایتون ۳.۱۱ یا بالاتر
-* یک توکن ربات از [@BotFather](https://t.me/BotFather)
-* میتونید از @userinfobot آیدی خودتون رو بگیرین
-* فایل config.json رو باز کنین و در صورت نیاز پرامپت هوش مصنوعی و موضوعات و لینک سایتای خبری رو عوض کنین.
+* Python 3.11 or higher
+* A bot token from [@BotFather](https://t.me/BotFather)
+* You can get your ID from [@userinfobot]
+* Open the config.json file and change the AI ​​prompt, topics, and news site links if needed.
 
-## راه‌اندازی (لینوکس و ویندوز)
 
-۱. مخزن را کلون کرده و وارد پوشه شوید:
+## Setup (Linux and Windows)
+
+1. Clone the repository and go to the folder:
 ```bash
 git clone https://github.com/amirehp/telegram_news_bot.git
 cd telegram_news_bot
 ```
 
-۲. یک محیط مجازی (Virtual Environment) ایجاد و فعال کنید:
+2. Create and activate a virtual environment:
 ```bash
-# در لینوکس:
+# in linux:
 python3 -m venv .venv
 source .venv/bin/activate
 
-# در ویندوز:
+# in windows:
 python -m venv .venv
 .venv\Scripts\activate
 ```
 
-۳. نیازمندی‌ها را نصب کنید:
+3. Install the requirements:
 ```bash
 pip install -r requirements.txt
 ```
 
-۴. یک فایل با نام `.env` در ریشه پروژه ایجاد کرده و مقادیر زیر را در آن قرار دهید:
+4. Create a file named `.env` in the root of the project and put the following values ​​in it:
 ```env
 TELEGRAM_TOKEN=your_telegram_bot_token_here
 TELEGRAM_OWNER_ID=your_telegram_user_id_here
 GEMINI_API_KEY=your_gemini_api_key
 ```
-برای گرفتن API key gemini
+To get the gemini API key:
 https://aistudio.google.com/app/api-keys
 
 
-## اجرای ربات
+## run the bot
 
-برای اجرای دستی:
+To run manually:
+
+on windows:
 ```bash
 python src/main.py
 ```
 
-or
-
+or on linux:
 ```bash
 python3 src/main.py
 ```
 
-## اجرای خودکار
+## Automatic execution
+### in linux (Systemd)
 
-### در لینوکس (Systemd)
-برای اجرای خودکار ربات در اوبونتو/لینوکس، از یک فایل `service` استفاده کن :
+To automatically run the bot on Ubuntu/Linux, use a `service` file:
 
-
-1. فایل اجرایی رو اجرا پذیر کن
+1. Make the executable file executable
 `chmod +x path/to/project/run.sh`
 
 
-2. یک فایل سرویس بسازید: `sudo nano ~/.config/systemd/user/newsbot.service` 
-3. محتوای زیر را در آن قرار دهید (مسیرها را اصلاح کنید):
+2. Create a service file: `sudo nano ~/.config/systemd/user/newsbot.service`
+3. Put the following content in it (correct the paths):
 ```ini
 [Unit]
 Description=Telegram News Bot 
@@ -78,10 +79,10 @@ ExecStart=/path/to/telegram_news_bot/.venv/bin/python src/main.py
 Restart=always
 ```
 
-4. Timer بساز
+4. create a Timer
 `nano ~/.config/systemd/user/newsbot.timer`
 
-5. اینارو توی فایلش قرار بده
+5. write these in the file. ( set your desired period instead of 1 hour )
 ```ini
 [Unit]
 Description=Run newsbot every hour
@@ -95,31 +96,31 @@ Persistent=false
 WantedBy=timers.target
 ```
 
-
-6. سرویس را فعال و اجرا کنید:
+6. Enable and run the service:
 ```bash
 systemctl --user daemon-reload
 systemctl --user enable --now newsbot.timer 
 ```
 
-### در ویندوز (Task Scheduler) 
+### in windows (Task Scheduler) 
 
-1. دستور زیر را در CMD (با دسترسی Administrator) اجرا کنید:
+1. Run the following command in CMD (with Administrator access):
 
 ```cmd
 schtasks /create /tn "NewsBot" /tr "\"C:\path\to\your\project\run.bat\"" /sc onlogon /rl highest
 ```
 
-2. برای تنظیم تکرار (مثلاً هر ۲ ساعت)، `Task Scheduler` (با دستور `taskschd.msc`) را باز کنید و در تنظیمات `Trigger` ربات، تیک `Repeat task every` را روی `2 hours` و `Duration` را روی `Indefinitely` بگذارید.
+2. To set the repetition (for example, every 2 hours), open `Task Scheduler` (with the `taskschd.msc` command) and in the robot's `Trigger` settings, check `Repeat task every` to `2 hours` and `Duration` to `Indefinitely`.
 
-Task Scheduler →  task NewsBot → Properties → Triggers → Edit →   Repeat task every: 2 hours → Duration: Indefinitely.
+Task Scheduler →  task NewsBot → Properties → Triggers → Edit → Repeat task every: 2 hours → Duration: Indefinitely.
 
-یک بار سیستم رو ری استارت کنین بعدش باید اتوماتیک کار کنه سر همون زمانی که مشخص کردین. 
-البته خودمم متوجه نشدم روی ویندوز تنظیمات دیگه ای رو هم تغییر دادم چون اولش درست کار نکرد. 
+Restart the system once and it should work automatically at the time you specified.
+Of course, I didn't realize that I changed other settings on Windows because it didn't work properly at first.
+
+## contribution
+
+We would be happy if you have a suggestion, please submit it as an Issue or Pull Request.
 
 
-## مشارکت
-
-خوشحال می‌شویم اگر پیشنهادی دارید، آن را به صورت Issue یا Pull Request ارسال کنید.
 
 
