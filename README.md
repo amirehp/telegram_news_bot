@@ -94,7 +94,7 @@ ExecStart=/path/to/project/.venv/bin/python src/main.py
 
 4. create a Timer:
 ```bash
-`nano ~/.config/systemd/user/newsbot.timer`
+nano ~/.config/systemd/user/newsbot.timer
 ```
 
 
