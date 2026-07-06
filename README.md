@@ -1,13 +1,13 @@
 # Telegram News Bot
 
-This is a Telegram bot for receiving and managing news.
+This is a Telegram bot for receiving and managing news via AI
 
 ## Prerequisites
 
 * Python 3.11 or higher
 * A bot token from [@BotFather](https://t.me/BotFather)
-* You can get your ID from [@userinfobot]
-* Open the config.json file and change the AI ​​prompt, topics, and news site links if needed.
+* You can get your ID from [@userinfobot](https://t.me/userinfobot)
+* Open the `config.json` file and change the AI ​​prompt, topics, and news site links if needed.
 
 
 ## Setup (Linux and Windows)
@@ -19,12 +19,15 @@ cd telegram_news_bot
 ```
 
 2. Create and activate a virtual environment:
+
+in linux:
 ```bash
-# in linux:
 python3 -m venv .venv
 source .venv/bin/activate
+```
 
-# in windows:
+in windows:
+```bash
 python -m venv .venv
 .venv\Scripts\activate
 ```
@@ -40,8 +43,11 @@ TELEGRAM_TOKEN=your_telegram_bot_token_here
 TELEGRAM_OWNER_ID=your_telegram_user_id_here
 GEMINI_API_KEY=your_gemini_api_key
 ```
-To get the gemini API key:
+To get the gemini API key visit:
+```bash
 https://aistudio.google.com/app/api-keys
+```
+
 
 
 ## run the bot
@@ -63,34 +69,43 @@ python3 src/main.py
 
 To automatically run the bot on Ubuntu/Linux, use a `service` file:
 
-1. Make the executable file executable
-`chmod +x path/to/project/run.sh`
+1. Make the executable file executable: 
+```bash
+chmod +x path/to/project/run.sh
+``` 
 
 
-2. Create a service file: `sudo nano ~/.config/systemd/user/newsbot.service`
+2. Create a service file: 
+```bash
+sudo nano ~/.config/systemd/user/newsbot.service
+```
+
+
 3. Put the following content in it (correct the paths):
 ```ini
 [Unit]
-Description=Telegram News Bot 
+Description=AI News Telegram Bot
 
-[Service] 
-WorkingDirectory=/path/to/telegram_news_bot
-ExecStart=/path/to/telegram_news_bot/.venv/bin/python src/main.py
-Restart=always
+[Service]
+Type=oneshot
+WorkingDirectory=/path/to/project
+ExecStart=/path/to/project/.venv/bin/python src/main.py
 ```
 
-4. create a Timer
+4. create a Timer:
+```bash
 `nano ~/.config/systemd/user/newsbot.timer`
+```
+
 
 5. write these in the file. ( set your desired period instead of 1 hour )
-```ini
+```ini 
 [Unit]
-Description=Run newsbot every hour
+Description=Run AI News Telegram Bot every hour
 
 [Timer]
 OnBootSec=10min
 OnUnitActiveSec=1h
-Persistent=false
 
 [Install]
 WantedBy=timers.target
@@ -119,8 +134,7 @@ Of course, I didn't realize that I changed other settings on Windows because it 
 
 ## contribution
 
-We would be happy if you have a suggestion, please submit it as an Issue or Pull Request.
-
+I would be happy if you have a suggestion, please submit it as an Issue or Pull Request.
 
 
 
