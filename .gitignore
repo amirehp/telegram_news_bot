@@ -1,8 +1,6 @@
 # Virtual environment (Python packages)
 .venv/
-venv/
-ENV/
-env/
+
 
 
 
@@ -12,11 +10,27 @@ __pycache__/
 *$py.class
 
 
+
+
 .env
 
 
-# IDE and local configurations
-.vscode/
-.idea/
+
+notes.txt
+
+
+
+
+config.json
+
+
+
+
+
+
+
+
+
+
 
 

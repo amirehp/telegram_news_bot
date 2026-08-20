@@ -1,6 +1,7 @@
 {
-    "model_name": "gemini-3.1-flash-lite",
-    "base_prompt": "I have some news that I want you to summarise it for me in a paragraph, just tell me important points about it. respond in Persian language \n\n",
+    "model_name": "gemini-3.5-flash-lite",
+    "base_prompt": "I have some news that I want you to summarise it for me in a paragraph, just tell me important points about it. write each news in a seperate line that starts with a '-' identifier . respond in Persian language \n\n",
+    "output_mode": "telegram",
     "topics": {
         "technology": [
             "https://www.theverge.com/rss/index.xml",

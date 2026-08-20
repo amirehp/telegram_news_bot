@@ -1,7 +1,7 @@
 import feedparser, requests, random, json, os, re
 from google import genai
 from google.genai import types
-from dotenv import load_dotenv 
+from dotenv import load_dotenv  
 
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))   
@@ -16,11 +16,12 @@ GEMINI_API_KEY = os.getenv('GEMINI_API_KEY')
 MODEL_NAME = config["model_name"]
 BASE_PROMPT = config["base_prompt"]
 TOPICS = config["topics"]
+OUTPUT_MODE = config.get("output_mode", "telegram")  # "telegram" یا "local"
 
 
 client = genai.Client(
     api_key=GEMINI_API_KEY,
-    http_options=types.HttpOptions(timeout=60_000)  # ۶۰ ثانیه
+    http_options=types.HttpOptions(timeout=60_000)  # 60 seconds time out
 )
 
 
@@ -65,11 +66,17 @@ def send(text):
 
 
 
+
+
+
+
+
 if __name__ == "__main__":
     try:
         topic, news = collect_news()
         summary = summarize(topic, news)
-        send(f"📰 {topic}\n\n{summary}")
+        if OUTPUT_MODE == "telegram":
+            send(f"📰 {topic}\n\n{summary}") 
     except Exception as e:
         print("error: ", e)
 
